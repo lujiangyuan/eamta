@@ -1,0 +1,127 @@
+**.subckt tbAnd
+V1 vss GND 0
+V2 vdd vss 1.8
+V3 aIn vss PULSE(0 {VIN} {aDUTY} 1p 1p {aDUTY} {aT}) DC({VIN}) 
+C1 out vss .1f m=1
+V4 bIn vss PULSE(0 {VIN} {bDUTY} 1p 1p {bDUTY} {bT}) DC({VIN}) 
+x1 vdd out aIn bIn vss and
+**** begin user architecture code
+
+
+
+* parametros
+.param VIN=1.8 aT=100n aDUTY=50n bT=200n bDUTY=100n WN=.450 WP=.90
+.options TEMP=27.0
+
+* include corners
+.lib /home/eamta/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/sky130.lib TT
+
+* saves
+.save all
+**PFETs  @M.x1.xm1.msky130_fd_pr__pfet_01v8[id]  @M.x1.xm1.msky130_fd_pr__pfet_01v8[vds]
+*+  @M.x1.xm1.msky130_fd_pr__pfet_01v8[vgs]  @M.x1.xm1.msky130_fd_pr__pfet_01v8[vth]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
+*+  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vds]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vgs]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vth]
+*+  @M.x1.xm5.msky130_fd_pr__pfet_01v8[id]  @M.x1.xm5.msky130_fd_pr__pfet_01v8[vds]  @M.x1.xm5.msky130_fd_pr__pfet_01v8[vgs]
+*+  @M.x1.xm5.msky130_fd_pr__pfet_01v8[vth]
+**NFETs  @M.x1.xm3.msky130_fd_pr__nfet_01v8[id]  @M.x1.xm3.msky130_fd_pr__nfet_01v8[vds]
+*+  @M.x1.xm3.msky130_fd_pr__nfet_01v8[vgs]  @M.x1.xm3.msky130_fd_pr__nfet_01v8[vth]  @M.x1.xm4.msky130_fd_pr__nfet_01v8[id]
+*+  @M.x1.xm4.msky130_fd_pr__nfet_01v8[vds]  @M.x1.xm4.msky130_fd_pr__nfet_01v8[vgs]  @M.x1.xm4.msky130_fd_pr__nfet_01v8[vth]
+*+  @M.x1.xm6.msky130_fd_pr__nfet_01v8[id]  @M.x1.xm6.msky130_fd_pr__nfet_01v8[vds]  @M.x1.xm6.msky130_fd_pr__nfet_01v8[vgs]
+*+  @M.x1.xm6.msky130_fd_pr__nfet_01v8[vth]
+
+* SIM
+.control
+	******************************************************
+	*let At=.005ns
+
+	tran 0.005ns 500ns
+
+	setplot tran1
+	**comportamiento iiiiiiiiiiiiiiiiiiiiiiiii
+	plot v(aIn) v(bIn)+2 v(out)+4
+	**rise/fall
+	plot v(out) v(aIn) .18 1.62 xlimit 149.95ns 150.15ns
+	plot v(out) v(aIn) .18 1.62 xlimit 199.95ns 200.05ns
+	**sos inimputable iiiiiiiiiiiiiiiiiii
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[vds]
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[id] tran1.@M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
+
+	*set filetype=ascii iiiiiiiiiiiiiiiiiii
+	*write simInvTran.raw
+	*reset
+	******************************************************
+	*alterparam bDUTY=100n
+	*dc V3 0 1.8 0.01
+	*alterparam aDUTY=100n
+	*dc V4 0 1.8 0.01
+	*dc V3 0 1.8 0.01 V4 0 1.8 0.01
+
+	*setplot dc1iiiiiiiiiiiiii
+	*plot dc1.out vs dc1.aIn dc2.out vs dc2.bIn dc3.out vs dc3.aIn
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[id]
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[vd]
+
+	*set filetype=ascii
+	*write simInvDc.raw
+	*reset
+	******************************************************
+	op
+
+	set filetype=ascii
+	write simInvOp.raw
+
+***********************************************************
+	*analisis cuasi parametrico
+	*let actParam=1ps
+	*let topParam=100ps
+	*let detlaParam=10ps
+
+	*foreach x 1ps 10ps 20ps 30ps 40ps 50ps
+	*	alterparam THL=$x
+	*	tran .01ns .1us
+	*	let actParam=actParam+deltaParam
+	*	print $x
+	*end
+
+	*plot tran1.out tran2.out tran3.out tran4.out tran5.out tran6.out tran7.out tran8.out tran9.out
+
+	print all
+.endc
+
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  and/and.sym # of pins=5
+* sym_path: /home/eamta/eamta2021/sch/and/and.sym
+* sch_path: /home/eamta/eamta2021/sch/and/and.sch
+.subckt and  vdd Y a b vss
+*.ipin vdd
+*.ipin vss
+*.ipin a
+*.ipin b
+*.opin Y
+XM1 net1 b vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W='WP' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM2 net1 a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W='WP' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM3 net1 a net2 vss sky130_fd_pr__nfet_01v8 L=0.15 W='WN' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM4 net2 b vss vss sky130_fd_pr__nfet_01v8 L=0.15 W='WN' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM5 Y net1 vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W='WP' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM6 Y net1 vss vss sky130_fd_pr__nfet_01v8 L=0.15 W='WN' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+.ends
+
+.GLOBAL GND
+** flattened .save nodes
+.end

@@ -1,0 +1,93 @@
+**.subckt tbInv
+x1 vdd in out vss inv
+V1 vss GND 0
+V2 vdd vss 1.8
+V3 in vss PULSE(0 {VIN} 1ps {THL} {THL} {DUTY} {TVIN}) DC({VIN}) 
+C1 out vss .1f m=1
+**** begin user architecture code
+
+
+
+* parametros
+.param VIN=1.8 WN=.450 WP=.90 THL=1p TVIN=100n DUTY=50n
+.options TEMP=27.0
+
+* include corners
+.lib /home/eamta/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/sky130.lib TT
+
+* saves
+.save all  @M.x1.xm1.msky130_fd_pr__nfet_01v8[id]  @M.x1.xm1.msky130_fd_pr__nfet_01v8[vds]  @M.x1.xm1.msky130_fd_pr__nfet_01v8[vgs]  @M.x1.xm1.msky130_fd_pr__nfet_01v8[vth]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[id]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vds]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vgs]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vth]
+
+* SIM
+.control
+	******************************************************
+	let At=.005ns
+	tran 0.005ns 250ns
+
+	setplot tran1
+	plot v(out) v(in) .18 1.62 xlimit 50ns 50.05ns
+	plot v(out) v(in) .18 1.62 xlimit 100ns 100.05ns
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[vds]
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[id] tran1.@M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
+
+	set filetype=ascii
+	write simInvTran.raw
+	reset
+	******************************************************
+	*dc V3 0 1.8 0.05
+	*setplot dc1
+	*plot v(out) v(in)
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[id]
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[vd]
+
+	*set filetype=ascii
+	*write simInvDc.raw
+	*reset
+	******************************************************
+	op
+
+	set filetype=ascii
+	write simInvOp.raw
+
+***********************************************************
+	*analisis cuasi parametrico
+	*let actParam=1ps
+	*let topParam=100ps
+	*let detlaParam=10ps
+
+	*foreach x 1ps 10ps 20ps 30ps 40ps 50ps
+	*	alterparam THL=$x
+	*	tran .01ns .1us
+	*	let actParam=actParam+deltaParam
+	*	print $x
+	*end
+
+	*plot tran1.out tran2.out tran3.out tran4.out tran5.out tran6.out tran7.out tran8.out tran9.out
+
+	print all
+.endc
+
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  inv/inv.sym # of pins=4
+* sym_path: /home/eamta/eamta2021/sch/inv/inv.sym
+* sch_path: /home/eamta/eamta2021/sch/inv/inv.sch
+.subckt inv  vdd in out vss
+*.ipin vdd
+*.ipin vss
+*.ipin in
+*.opin out
+XM1 out in vss vss sky130_fd_pr__nfet_01v8 L=0.15 W='WN' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM2 out in vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W='WP' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+.ends
+
+.GLOBAL GND
+** flattened .save nodes
+.end

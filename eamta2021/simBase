@@ -1,0 +1,72 @@
+name=sim0 only_toplevel=false value="
+
+* parametros
+.param VIN=1.8 WN=.450 WP=1 THL=1p TVIN=100n DUTY=50n
+.options TEMP=27.0
+
+* include corners
+.lib /home/eamta/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/sky130.lib TT
+
+* saves
+.save all
++ @M.x1.xm1.msky130_fd_pr__nfet_01v8[id]
++ @M.x1.xm1.msky130_fd_pr__nfet_01v8[vds]
++ @M.x1.xm1.msky130_fd_pr__nfet_01v8[vgs]
++ @M.x1.xm1.msky130_fd_pr__nfet_01v8[vth]
++ @M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
++ @M.x1.xm2.msky130_fd_pr__pfet_01v8[vds]
++ @M.x1.xm2.msky130_fd_pr__pfet_01v8[vgs]
++ @M.x1.xm2.msky130_fd_pr__pfet_01v8[vth]
+
+* SIM
+.control
+	******************************************************
+	let At=.005ns
+	tran 0.01ns 250ns	
+
+	setplot tran1
+	plot v(out) v(in) .18 1.62 xlimit 50ns 50.05ns
+	plot v(out) v(in) .18 1.62 xlimit 100ns 100.05ns
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[vds] 
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[id] tran1.@M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
+
+	set filetype=ascii
+	write simInvTran.raw
+	reset 
+	******************************************************
+	*dc V3 0 1.8 0.05
+	*setplot dc1
+	*plot v(out) v(in)
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[id] 
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[vd]
+	
+	*set filetype=ascii
+	*write simInvDc.raw
+	*reset
+	******************************************************
+	op
+
+	set filetype=ascii
+	write simInvOp.raw
+
+***********************************************************	
+	*analisis cuasi parametrico
+	*let actParam=1ps
+	*let topParam=100ps
+	*let detlaParam=10ps
+	
+	*foreach x 1ps 10ps 20ps 30ps 40ps 50ps	
+	*	alterparam THL=$x
+	*	tran .01ns .1us
+	*	let actParam=actParam+deltaParam
+	*	print $x		
+	*end
+	
+	*plot tran1.out tran2.out tran3.out tran4.out tran5.out tran6.out tran7.out tran8.out tran9.out 
+
+	print all
+.endc
+
+.end
+"
+

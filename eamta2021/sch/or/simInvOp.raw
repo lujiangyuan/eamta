@@ -1,0 +1,67 @@
+Title: **.subckt tbor
+Date: Sat Mar  6 04:15:12  2021
+Plotname: Operating Point
+Flags: real
+No. Variables: 29
+No. Points: 1
+Variables:
+	0	v(vss)	voltage
+	1	v(ain)	voltage
+	2	v(bin)	voltage
+	3	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#body)	voltage
+	4	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	5	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	6	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#body)	voltage
+	7	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	8	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	9	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#body)	voltage
+	10	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	11	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	12	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#body)	voltage
+	13	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	14	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	15	v(m.x1.xm5.msky130_fd_pr__pfet_01v8#body)	voltage
+	16	v(m.x1.xm5.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	17	v(m.x1.xm5.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	18	v(m.x1.xm6.msky130_fd_pr__nfet_01v8#body)	voltage
+	19	v(m.x1.xm6.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	20	v(m.x1.xm6.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	21	v(out)	voltage
+	22	i(v1)	current
+	23	i(v2)	current
+	24	i(v3)	current
+	25	i(v4)	current
+	26	v(vdd)	voltage
+	27	v(x1.net1)	voltage
+	28	v(x1.net2)	voltage
+Values:
+ 0	0.000000000000000e+00
+	1.800000000000000e+00
+	1.800000000000000e+00
+	1.789582169922294e+00
+	1.794775959636560e+00
+	1.794827270278246e+00
+	1.787647357862251e+00
+	1.789955001982112e+00
+	1.793815258251797e+00
+	6.633062254392218e-03
+	6.970820354022540e-03
+	3.304254101310895e-03
+	6.633062254392219e-03
+	6.970820354022540e-03
+	3.304254101310897e-03
+	1.784352356133831e+00
+	1.787726732282664e+00
+	1.792230431007252e+00
+	5.847324995907982e-03
+	6.279483947581095e-03
+	2.912357526314764e-03
+	1.042256733134636e+00
+	-3.401142215087027e-16
+	-1.767149362875094e-03
+	-9.016916105201311e-05
+	-1.111262997186883e-04
+	1.800000000000000e+00
+	1.154061450559048e+00
+	1.792609711399490e+00
+

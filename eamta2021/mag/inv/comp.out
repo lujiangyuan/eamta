@@ -1,0 +1,18 @@
+Flattening unmatched subcell sky130_fd_pr__nfet_01v8_A4WUDG in circuit layInv.spice (1)(1 instance)
+Flattening unmatched subcell sky130_fd_pr__pfet_01v8_7KP3BC in circuit layInv.spice (1)(1 instance)
+Equate elements:  no current cell.
+Equate elements:  no current cell.
+
+Subcircuit summary:
+Circuit 1: /home/eamta/eamta2021/sch/inv/i |Circuit 2: layInv.spice                    
+-------------------------------------------|-------------------------------------------
+sky130_fd_pr__nfet_01v8 (1)                |sky130_fd_pr__nfet_01v8 (1)                
+sky130_fd_pr__pfet_01v8 (1)                |sky130_fd_pr__pfet_01v8 (1)                
+Number of devices: 2                       |Number of devices: 2                       
+Number of nets: 4                          |Number of nets: 4                          
+---------------------------------------------------------------------------------------
+Circuits match uniquely.
+Netlists match uniquely.
+Cells have no pins;  pin matching not needed.
+Device classes /home/eamta/eamta2021/sch/inv/inv.spice and layInv.spice are equivalent.
+Circuits match uniquely.

@@ -1,0 +1,117 @@
+**.subckt tbNand
+x1 vdd out aIn bIn vss schNand
+V1 vss GND 0
+V2 vdd vss 1.8
+V3 aIn vss PULSE(0 {VIN} {aDUTY} 1p 1p {aDUTY} {aT}) DC({VIN}) 
+C1 out vss .1f m=1
+V4 bIn vss PULSE(0 {VIN} {bDUTY} 1p 1p {bDUTY} {bT}) DC({VIN}) 
+**** begin user architecture code
+
+
+
+* parametros
+.param VIN=1.8 aT=100n aDUTY=50n bT=100n bDUTY=50n WN=.450 WP=.90
+.options TEMP=27.0
+
+* include corners
+.lib /home/eamta/skywater/skywater-pdk/libraries/sky130_fd_pr_ngspice/latest/models/corners/sky130.lib TT
+
+* saves
+.save all
+**PFETs  @M.x1.xm1.msky130_fd_pr__pfet_01v8[id]  @M.x1.xm1.msky130_fd_pr__pfet_01v8[vds]
+*+  @M.x1.xm1.msky130_fd_pr__pfet_01v8[vgs]  @M.x1.xm1.msky130_fd_pr__pfet_01v8[vth]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
+*+  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vds]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vgs]  @M.x1.xm2.msky130_fd_pr__pfet_01v8[vth]
+**NFETs  @M.x1.xm3.msky130_fd_pr__nfet_01v8[id]  @M.x1.xm3.msky130_fd_pr__nfet_01v8[vds]
+*+  @M.x1.xm3.msky130_fd_pr__nfet_01v8[vgs]  @M.x1.xm3.msky130_fd_pr__nfet_01v8[vth]  @M.x1.xm4.msky130_fd_pr__nfet_01v8[id]
+*+  @M.x1.xm4.msky130_fd_pr__nfet_01v8[vds]  @M.x1.xm4.msky130_fd_pr__nfet_01v8[vgs]  @M.x1.xm4.msky130_fd_pr__nfet_01v8[vth]
+
+* SIM
+.control
+	******************************************************
+	*let At=.005ns
+
+	tran 0.005ns 500ns
+
+	setplot tran1
+	**comportamiento
+	*plot v(aIn) v(bIn)+2 v(out)+4
+	**rise/fall
+	plot v(out) v(aIn) .18 1.62 xlimit 50ns 50.05ns
+	plot v(out) v(aIn) .18 1.62 xlimit 100ns 100.05ns
+	**sos inimputable
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[vds]
+	*plot tran1.@M.x1.xm1.msky130_fd_pr__nfet_01v8[id] tran1.@M.x1.xm2.msky130_fd_pr__pfet_01v8[id]
+
+	*set filetype=ascii
+	*write simInvTran.raw
+	*reset
+	******************************************************
+	*alterparam bDUTY=100n
+	*dc V3 0 1.8 0.01
+	*alterparam aDUTY=100n
+	*dc V4 0 1.8 0.01
+	*dc V3 0 1.8 0.01 V4 0 1.8 0.01
+
+	*setplot dc1
+	*plot dc1.out vs dc1.aIn dc2.out vs dc2.bIn dc3.out vs dc3.aIn
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[id]
+	*plot @M.x1.xm1.msky130_fd_pr__nfet_01v8[vd]
+
+	*set filetype=ascii
+	*write simInvDc.raw
+	*reset
+	******************************************************
+	op
+
+	set filetype=ascii
+	write simInvOp.raw
+
+***********************************************************
+	*analisis cuasi parametrico
+	*let actParam=1ps
+	*let topParam=100ps
+	*let detlaParam=10ps
+
+	*foreach x 1ps 10ps 20ps 30ps 40ps 50ps
+	*	alterparam THL=$x
+	*	tran .01ns .1us
+	*	let actParam=actParam+deltaParam
+	*	print $x
+	*end
+
+	*plot tran1.out tran2.out tran3.out tran4.out tran5.out tran6.out tran7.out tran8.out tran9.out
+
+	print all
+.endc
+
+
+
+**** end user architecture code
+**.ends
+
+* expanding   symbol:  nand/schNand.sym # of pins=5
+* sym_path: /home/eamta/eamta2021/sch/nand/schNand.sym
+* sch_path: /home/eamta/eamta2021/sch/nand/schNand.sch
+.subckt schNand  vdd nY a b vss
+*.ipin vdd
+*.ipin vss
+*.ipin a
+*.ipin b
+*.opin nY
+XM1 nY b vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W='WP' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM2 nY a vdd vdd sky130_fd_pr__pfet_01v8 L=0.15 W='WP' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM3 nY a net1 vss sky130_fd_pr__nfet_01v8 L=0.15 W='WN' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+XM4 net1 b vss vss sky130_fd_pr__nfet_01v8 L=0.15 W='WN' nf=1 ad='int((nf+1)/2) * W/nf * 0.29' as='int((nf+2)/2) * W/nf * 0.29'
++ pd='2*int((nf+1)/2) * (W/nf + 0.29)' ps='2*int((nf+2)/2) * (W/nf + 0.29)' nrd='0.29 / W' nrs='0.29 / W'
++ sa=0 sb=0 sd=0 mult=1 m=1 
+.ends
+
+.GLOBAL GND
+** flattened .save nodes
+.end

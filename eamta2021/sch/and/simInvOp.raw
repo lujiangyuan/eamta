@@ -1,0 +1,67 @@
+Title: **.subckt tband
+Date: Sat Mar  6 01:25:22  2021
+Plotname: Operating Point
+Flags: real
+No. Variables: 29
+No. Points: 1
+Variables:
+	0	v(vss)	voltage
+	1	v(ain)	voltage
+	2	v(bin)	voltage
+	3	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#body)	voltage
+	4	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	5	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	6	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#body)	voltage
+	7	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	8	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	9	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#body)	voltage
+	10	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	11	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	12	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#body)	voltage
+	13	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	14	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	15	v(m.x1.xm5.msky130_fd_pr__pfet_01v8#body)	voltage
+	16	v(m.x1.xm5.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	17	v(m.x1.xm5.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	18	v(m.x1.xm6.msky130_fd_pr__nfet_01v8#body)	voltage
+	19	v(m.x1.xm6.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	20	v(m.x1.xm6.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	21	v(out)	voltage
+	22	i(v1)	current
+	23	i(v2)	current
+	24	i(v3)	current
+	25	i(v4)	current
+	26	v(vdd)	voltage
+	27	v(x1.net1)	voltage
+	28	v(x1.net2)	voltage
+Values:
+ 0	0.000000000000000e+00
+	1.800000000000000e+00
+	1.800000000000000e+00
+	1.788736130771753e+00
+	1.792649282332734e+00
+	1.794407193685570e+00
+	1.788736130771753e+00
+	1.792649282332734e+00
+	1.794407193685570e+00
+	8.397767948692299e-03
+	8.807183879080822e-03
+	6.100458675482649e-03
+	5.701512192343205e-03
+	4.756135873330247e-03
+	2.840292277908030e-03
+	1.785899165281109e+00
+	1.788482825442930e+00
+	1.792998553707401e+00
+	6.213239735736393e-03
+	6.454879957053431e-03
+	3.094925694397255e-03
+	1.039678990163472e+00
+	-1.758169347956806e-15
+	-1.641627908995989e-03
+	3.680477580404050e-05
+	-1.353481589137647e-04
+	1.800000000000000e+00
+	1.530376102277472e+00
+	5.439740690762536e-01
+

@@ -1,0 +1,53 @@
+Title: **.subckt tbnand
+Date: Sat Mar  6 01:08:10  2021
+Plotname: Operating Point
+Flags: real
+No. Variables: 22
+No. Points: 1
+Variables:
+	0	v(out)	voltage
+	1	v(ain)	voltage
+	2	v(bin)	voltage
+	3	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#body)	voltage
+	4	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	5	v(m.x1.xm1.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	6	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#body)	voltage
+	7	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#dbody)	voltage
+	8	v(m.x1.xm2.msky130_fd_pr__pfet_01v8#sbody)	voltage
+	9	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#body)	voltage
+	10	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	11	v(m.x1.xm3.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	12	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#body)	voltage
+	13	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#dbody)	voltage
+	14	v(m.x1.xm4.msky130_fd_pr__nfet_01v8#sbody)	voltage
+	15	i(v1)	current
+	16	i(v2)	current
+	17	i(v3)	current
+	18	i(v4)	current
+	19	v(vdd)	voltage
+	20	v(vss)	voltage
+	21	v(x1.net1)	voltage
+Values:
+ 0	1.466270136598599e+00
+	1.800000000000000e+00
+	1.800000000000000e+00
+	1.788544446318230e+00
+	1.792165841333764e+00
+	1.794312018282273e+00
+	1.788544446318229e+00
+	1.792165841333763e+00
+	1.794312018282272e+00
+	8.315981252914717e-03
+	8.608652585140496e-03
+	6.055101861292798e-03
+	5.698430819657718e-03
+	4.750011642481542e-03
+	2.838757535278307e-03
+	-3.424289931469593e-15
+	-1.003716636213826e-03
+	3.087495681440679e-05
+	-1.375218593707418e-04
+	1.800000000000000e+00
+	0.000000000000000e+00
+	5.425135781416216e-01
+
